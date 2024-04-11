@@ -101,3 +101,51 @@ document.getElementById("mineral-form").addEventListener("submit", function (eve
     let converter = new CelsiusToFahrenheitConverter();
     let convertedTemperature = converter.convert(formationTemperature);
 });
+
+
+interface Imuestra {
+    dameContenido(mineral: Mineral): string;
+}
+
+
+class MuestraHtmlAmericano implements Imuestra {
+    dameContenido(mineral: Mineral): string {
+        return (`<p> Identifier: ${mineral.id} </p> 
+                 <p> Name: ${mineral.nombre} </p> 
+                 <p> Group: ${mineral.group} </p>
+                 <p> Hardness: ${mineral.hardness} </p> 
+                 <p> Grain Size: ${mineral.grainSize} </p> 
+                 <p> Sort: ${mineral.classification} </p>
+                 <p> Cristal Size: ${mineral.crystalSize} </p>
+                 <p> Formation Temperature: ${mineral.formationTemperature} </p> 
+                 <p> Structure: ${mineral.structure} </p> 
+                 <p> Forms Grain: ${mineral.grainShape} </p>
+                 <p> Texture: ${mineral.texture} </p>`);
+
+    }
+
+}
+
+class MuestraHTMLEuropeo implements Imuestra {
+    dameContenido(mineral: Mineral): string {
+
+    return (`< p > Identicador: ${mineral.id} </p> 
+            < p > Nombre: ${mineral.nombre} </p> 
+            < p > Grupo: ${mineral.group} </p>
+            < p > Dureza: ${mineral.hardness} </p> 
+            < p > Tamaño Grano: ${mineral.grainSize} </p> 
+            < p > Clasificacion: ${mineral.classification} </p>
+            < p > Tamaño Cristales: ${mineral.crystalSize} </p>
+            < p > Temperatura: ${mineral.formationTemperature} </p> 
+            < p > Estructura: ${mineral.structure} </p> 
+            < p > Forma Granos: ${mineral.grainShape} </p>
+            < p > Textura: ${mineral.texture} </p>`);
+
+    }
+
+}
+
+        
+    
+
+

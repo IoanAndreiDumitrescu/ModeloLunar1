@@ -86,4 +86,20 @@ document.getElementById("mineral-form").addEventListener("submit", function (eve
     var converter = new CelsiusToFahrenheitConverter();
     var convertedTemperature = converter.convert(formationTemperature);
 });
+var MuestraHtmlAmericano = /** @class */ (function () {
+    function MuestraHtmlAmericano() {
+    }
+    MuestraHtmlAmericano.prototype.dameContenido = function (mineral) {
+        return ("<p> Identifier: ".concat(mineral.id, " </p> \n                 <p> Name: ").concat(mineral.nombre, " </p> \n                 <p> Group: ").concat(mineral.group, " </p>\n                 <p> Hardness: ").concat(mineral.hardness, " </p> \n                 <p> Grain Size: ").concat(mineral.grainSize, " </p> \n                 <p> Sort: ").concat(mineral.classification, " </p>\n                 <p> Cristal Size: ").concat(mineral.crystalSize, " </p>\n                 <p> Formation Temperature: ").concat(mineral.formationTemperature, " </p> \n                 <p> Structure: ").concat(mineral.structure, " </p> \n                 <p> Forms Grain: ").concat(mineral.grainShape, " </p>\n                 <p> Texture: ").concat(mineral.texture, " </p>"));
+    };
+    return MuestraHtmlAmericano;
+}());
+var MuestraHTMLEuropeo = /** @class */ (function () {
+    function MuestraHTMLEuropeo() {
+    }
+    MuestraHTMLEuropeo.prototype.dameContenido = function (mineral) {
+        return ("< p > Identicador: ".concat(mineral.id, " </p> \n            < p > Nombre: ").concat(mineral.nombre, " </p> \n            < p > Grupo: ").concat(mineral.group, " </p>\n            < p > Dureza: ").concat(mineral.hardness, " </p> \n            < p > Tama\u00F1o Grano: ").concat(mineral.grainSize, " </p> \n            < p > Clasificacion: ").concat(mineral.classification, " </p>\n            < p > Tama\u00F1o Cristales: ").concat(mineral.crystalSize, " </p>\n            < p > Temperatura: ").concat(mineral.formationTemperature, " </p> \n            < p > Estructura: ").concat(mineral.structure, " </p> \n            < p > Forma Granos: ").concat(mineral.grainShape, " </p>\n            < p > Textura: ").concat(mineral.texture, " </p>"));
+    };
+    return MuestraHTMLEuropeo;
+}());
 //# sourceMappingURL=moduloLunar.js.map

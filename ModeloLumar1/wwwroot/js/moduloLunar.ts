@@ -81,7 +81,7 @@ document.getElementById("imprimir").addEventListener("click", function (event) {
     if(muestra){
         const content = muestra.dameContenido(mineral);
         const outputDiv = document.getElementById('muestra-format');
-        outputDiv.innerHTML = content; // This will insert and display your HTML code in the page
+        outputDiv.innerHTML = content;
     }else{
         console.log('Muestra not selected');
     }

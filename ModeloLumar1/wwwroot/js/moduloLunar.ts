@@ -79,13 +79,6 @@ function updateOutput() {
     } else if (selectedFormat === 'MuestraHTMLEuropeo') {
         muestraHtml = new MuestraHTMLEuropeo();
     }
-
-    if (muestraHtml) {
-        const outputDiv = document.getElementById('muestra-output');
-        if (outputDiv) {
-            outputDiv.innerHTML = muestraHtml.dameContenido(mineral);
-        }
-    }
 }
 
 

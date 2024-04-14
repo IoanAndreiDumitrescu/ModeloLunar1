@@ -1,30 +1,30 @@
 ﻿class Mineral {
-    constructor(
-        public id: string = "",
-        public nombre: string = "",
-        public group: string = "",
-        public hardness: number = 0,
-        public grainSize: string = "",
-        public classification: string = "",
-        public crystalSize: number = 0,
-        public formationTemperature: number = 0,
-        public structure: string = "",
-        public grainShape: string = "",
-        public texture: string = "") { }
+    public id: string = "";
+    public nombre: string = "";
+    public group: string = "";
+    public hardness: number = 0;
+    public grainSize: string = "";
+    public classification: string = "";
+    public crystalSize: number = 0;
+    public formationTemperature: number = 0;
+    public structure: string = "";
+    public grainShape: string = "";
+    public texture: string = "";
 }
 
 interface MineralValidator {
     validate: (mineral: Mineral) => boolean;
 }
 
-interface TemperatureConverter {
-    convert: (temperature: number) => number;
+
+interface ImuestraMineralValidator {
+    dameContenido(mineral: Mineral): string;
 }
 
 class IgneasValidator implements MineralValidator {
     validate(mineral: Mineral): boolean {
         if (mineral.group === 'igneas' && mineral.grainSize === 'granoMuyGrueso') {
-            console.log("Values for roca Igneas<br/>");
+           document.write("Values for roca Igneas<br/>");
             return true;
         }
         return false;
@@ -34,7 +34,7 @@ class IgneasValidator implements MineralValidator {
 class MetamorficasValidator implements MineralValidator {
     validate(mineral: Mineral): boolean {
         if (mineral.group === 'metamorficas' && (mineral.grainSize === 'granoMedio' || mineral.grainSize === 'granoFino') && mineral.texture === 'vitrea') {
-            console.log("Values for roca Metamorficas<br/>");
+            document.write("Values for roca Metamorficas<br/>");
             return true;
         }
         return false;
@@ -44,55 +44,54 @@ class MetamorficasValidator implements MineralValidator {
 class SedimentariaValidator implements MineralValidator {
     validate(mineral: Mineral): boolean {
         if (mineral.group === 'sedimentarias' && mineral.texture === 'faneritica') {
-            console.log("Values for roca Sedimentaria<br/>");
+            document.write("Values for roca Sedimentaria<br/>");
             return true;
         }
         return false;
     }
 }
 
-class CelsiusToFahrenheitConverter implements TemperatureConverter {
-    convert(temperature: number): number {
-        return (temperature * 9 / 5) + 32;
-    }
-}
 
-document.getElementById("mineral-form").addEventListener("submit", function (event) {
-    event.preventDefault();
-    let formationTemperature = Number((document.getElementById("formationTemperature") as HTMLInputElement).value);
-    let converter = new CelsiusToFahrenheitConverter();
-    let convertedTemperature = converter.convert(formationTemperature);
+
+
+
+document.getElementById("muestra-format").addEventListener("change", function(event) {
+    updateOutput();
 });
 
-document.getElementById("imprimir").addEventListener("click", function (event) {
-    event.preventDefault();
-    let muestraOptions = document.getElementById("muestra-format") as HTMLSelectElement;
-    let selectedMuestra = muestraOptions.options[muestraOptions.selectedIndex].value;
+
+function updateOutput() {
     let mineral = new Mineral();
     mineral.nombre = (document.getElementById("nombre") as HTMLInputElement).value;
     mineral.id = (document.getElementById("id") as HTMLInputElement).value;
-    //... fill other properties
-    let muestra: Imuestra | null = null;
-    if (selectedMuestra === 'MuestraHtmlAmericano') {
-        muestra = new MuestraHtmlAmericano();
-    } else if (selectedMuestra === 'MuestraHTMLEuropeo') {
-        muestra = new MuestraHTMLEuropeo();
-    }
-    if(muestra){
-        const content = muestra.dameContenido(mineral);
-        const outputDiv = document.getElementById('muestra-format');
-        outputDiv.innerHTML = content;
-    }else{
-        console.log('Muestra not selected');
-    }
-});
+    mineral.hardness = Number((document.getElementById("hardness") as HTMLInputElement).value);
+    mineral.grainSize = (document.getElementById("grainSize") as HTMLInputElement).value;
+    mineral.classification = (document.getElementById("classification") as HTMLInputElement).value;
+    mineral.crystalSize = Number((document.getElementById("crystalSize") as HTMLInputElement).value);
+    mineral.formationTemperature = Number((document.getElementById("formationTemperature") as HTMLInputElement).value);
+    mineral.structure = (document.getElementById("structure") as HTMLInputElement).value
+    mineral.texture = (document.getElementById("texture") as HTMLInputElement).value
 
-interface Imuestra {
-    dameContenido(mineral: Mineral): string;
+    let muestraHtml: ImuestraMineralValidator;
+    let selectedFormat = (document.getElementById("muestra-format") as HTMLSelectElement).value;
+    if (selectedFormat === 'MuestraHtmlAmericano') {
+        muestraHtml = new MuestraHtmlAmericano();
+    } else if (selectedFormat === 'MuestraHTMLEuropeo') {
+        muestraHtml = new MuestraHTMLEuropeo();
+    }
+
+    if (muestraHtml) {
+        const outputDiv = document.getElementById('muestra-output');
+        if (outputDiv) {
+            outputDiv.innerHTML = muestraHtml.dameContenido(mineral);
+        }
+    }
 }
 
 
-class MuestraHtmlAmericano implements Imuestra {
+
+
+class MuestraHtmlAmericano implements ImuestraMineralValidator {
     dameContenido(mineral: Mineral): string {
         return `
             <p>Identifier: ${mineral.id}</p>
@@ -109,7 +108,7 @@ class MuestraHtmlAmericano implements Imuestra {
     }
 }
 
-class MuestraHTMLEuropeo implements Imuestra {
+class MuestraHTMLEuropeo implements ImuestraMineralValidator {
     dameContenido(mineral: Mineral): string {
         return `
             <p>Identicador: ${mineral.id}</p>
